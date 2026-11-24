@@ -93,11 +93,36 @@ function route() {
   var h = (location.hash || "").replace("#", "");
   var v = h === "hoi-dap" ? "hoi-dap" : "cua-hang";
   var activeNav = h === "goi-khung" ? "goi-khung" : v;
+  var switchingToHome = v === "cua-hang" && !$("v-cua-hang").classList.contains("on");
   document.querySelectorAll(".view").forEach(function (e) { e.classList.toggle("on", e.id === "v-" + v) });
   document.querySelectorAll("header a[data-v]").forEach(function (a) { a.classList.toggle("on", a.dataset.v === activeNav) });
-  if (h !== "goi-khung" && h !== "add-locket") {
+  if ((h === "goi-khung" || h === "add-locket") && switchingToHome) {
+    window.requestAnimationFrame(function () {
+      $(h).scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  } else if (h !== "goi-khung" && h !== "add-locket") {
     window.scrollTo(0, 0);
   }
+}
+// Tao mot so trai tim trang tri nen, giam so luong tren dien thoai.
+function setupBackgroundHearts() {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var layer = document.createElement("div");
+  layer.className = "background-hearts";
+  layer.setAttribute("aria-hidden", "true");
+  var count = window.matchMedia("(max-width: 560px)").matches ? 5 : 8;
+  for (var i = 0; i < count; i++) {
+    var heart = document.createElement("span");
+    heart.className = "background-heart";
+    heart.textContent = "♥";
+    heart.style.left = (3 + Math.random() * 94) + "%";
+    heart.style.fontSize = (16 + Math.random() * 14) + "px";
+    heart.style.setProperty("--heart-duration", (18 + Math.random() * 10) + "s");
+    heart.style.setProperty("--heart-delay", (-Math.random() * 22) + "s");
+    heart.style.setProperty("--heart-drift", (Math.random() * 48 - 24) + "px");
+    layer.appendChild(heart);
+  }
+  document.body.insertBefore(layer, document.body.firstChild);
 }
 // Cho cac khu vuc noi len nhe khi lan dau cuon den.
 function setupScrollReveal() {
@@ -119,7 +144,7 @@ function setupScrollReveal() {
 // Re-render giao dien khi dia chi hash thay doi.
 window.addEventListener("hashchange", route);
 // Ve danh sach goi va ap dung route ngay khi trang duoc tai.
-drawPacks(); route(); setupScrollReveal();
+drawPacks(); route(); setupBackgroundHearts(); setupScrollReveal();
 // Tao hieu ung trai tim nho tai vi tri nguoi dung click vao trang.
 document.addEventListener("click", function (event) {
   if (event.detail === 0) return;

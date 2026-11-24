@@ -2520,48 +2520,48 @@ input[type=url]:focus {
 
 .hero-copy>* {
     opacity: 0;
-    animation: heroRise .65s cubic-bezier(.2, .7, .25, 1) both
+    animation: heroRise .52s cubic-bezier(.22, .61, .36, 1) both
 }
 
 .hero-copy>:nth-child(2) {
-    animation-delay: 80ms
+    animation-delay: 40ms
 }
 
 .hero-copy>:nth-child(3) {
-    animation-delay: 160ms
+    animation-delay: 80ms
 }
 
 .hero-copy>:nth-child(4) {
-    animation-delay: 240ms
+    animation-delay: 120ms
 }
 
 .hero-copy>:nth-child(5) {
-    animation-delay: 320ms
+    animation-delay: 160ms
 }
 
 .hero-art {
-    animation: heroStageIn .8s cubic-bezier(.2, .7, .25, 1) 120ms both
+    animation: heroStageIn .65s cubic-bezier(.22, .61, .36, 1) 60ms both
 }
 
 .hero-art .sun {
-    animation: sunBreathe 5s ease-in-out 900ms infinite
+    animation: sunBreathe 1.4s ease-in-out 120ms 1 both
 }
 
 .hero-art .art-image {
-    animation: artImageIn .7s cubic-bezier(.2, .7, .25, 1) both,
-        artImageFloat 6s ease-in-out 1.1s infinite
+    animation: artImageIn .72s cubic-bezier(.22, .61, .36, 1) both,
+        artImageDrift 5s ease-in-out .7s infinite
 }
 
 .hero-art .art-image-back {
-    animation-delay: 240ms, 1.5s
+    animation-delay: 180ms, .6s
 }
 
 .hero-art .art-image-front {
-    animation-delay: 80ms, 1.1s
+    animation-delay: 60ms, 1.2s
 }
 
 .hero-art .art-image-center {
-    animation-delay: 400ms, 1.7s
+    animation-delay: 260ms, .9s
 }
 
 .reveal-on-scroll {
@@ -2625,7 +2625,12 @@ input[type=url]:focus {
 @keyframes artImageIn {
     from {
         opacity: 0;
-        scale: .86
+        scale: .78
+    }
+
+    70% {
+        opacity: 1;
+        scale: 1.035
     }
 
     to {
@@ -2634,14 +2639,16 @@ input[type=url]:focus {
     }
 }
 
-@keyframes artImageFloat {
+@keyframes artImageDrift {
     0%,
     100% {
-        translate: 0 0
+        translate: 0 0;
+        rotate: 0deg
     }
 
     50% {
-        translate: 0 -7px
+        translate: 0 -12px;
+        rotate: .8deg
     }
 }
 
@@ -2672,5 +2679,55 @@ input[type=url]:focus {
         opacity: 1;
         transform: none;
         transition: none
+    }
+}
+
+.background-hearts {
+    position: fixed;
+    z-index: 0;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    contain: paint
+}
+
+body>.wrap {
+    position: relative;
+    z-index: 1
+}
+
+.background-heart {
+    position: absolute;
+    bottom: -34px;
+    color: #d99800;
+    line-height: 1;
+    opacity: 0;
+    animation: backgroundHeartRise var(--heart-duration) linear var(--heart-delay) infinite
+}
+
+@keyframes backgroundHeartRise {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, 0, 0) scale(.82) rotate(-8deg)
+    }
+
+    8% {
+        opacity: .24
+    }
+
+    88% {
+        opacity: .2
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate3d(var(--heart-drift), -115vh, 0) scale(1.12) rotate(10deg)
+    }
+}
+
+@media(prefers-reduced-motion:reduce) {
+    .background-heart {
+        display: none;
+        animation: none
     }
 }
