@@ -1,4 +1,5 @@
 (function () {
+  // Lay cac phan tu giao dien dang nhap/dang ky va khoi tao trang thai.
   var loginForm = document.getElementById("loginForm");
   var signupForm = document.getElementById("signupForm");
   var loginTab = document.getElementById("loginTab");
@@ -8,11 +9,13 @@
   var auth = null;
   var mode = "login";
 
+  // Hien thong bao dang nhap hoac dang ky kem mau trang thai.
   function showMessage(text, kind) {
     message.textContent = text;
     message.className = "auth-message " + kind;
   }
 
+  // Chuyen giua che do dang nhap va dang ky.
   function setMode(nextMode) {
     mode = nextMode;
     var isLogin = mode === "login";
@@ -30,6 +33,7 @@
     );
   }
 
+  // Chuyen ma loi Firebase thanh thong diep de hien thi cho nguoi dung.
   function getErrorMessage(error) {
     var messages = {
       "auth/email-already-in-use": "Email này đã có tài khoản. Hãy đăng nhập.",
@@ -44,17 +48,21 @@
     return messages[error.code] || "Không thể hoàn tất yêu cầu. Vui lòng kiểm tra cấu hình Firebase và thử lại.";
   }
 
+  // Hien loi Firebase duoi dang thong bao tren giao dien.
   function reportError(error) {
     showMessage(getErrorMessage(error), "error");
   }
 
+  // Khi bam tab dang nhap thi chuyen sang che do dang nhap.
   loginTab.addEventListener("click", function () {
     setMode("login");
   });
+  // Khi bam tab dang ky thi chuyen sang che do dang ky.
   signupTab.addEventListener("click", function () {
     setMode("signup");
   });
 
+  // Xu ly submit form dang nhap tai khoan bang email va mat khau.
   loginForm.addEventListener("submit", function (event) {
     event.preventDefault();
     if (!auth) {
@@ -68,6 +76,7 @@
     ).catch(reportError);
   });
 
+  // Xu ly submit form dang ky va kiem tra hai mat khau co trung nhau.
   signupForm.addEventListener("submit", function (event) {
     event.preventDefault();
     if (!auth) {
@@ -87,6 +96,7 @@
     ).catch(reportError);
   });
 
+  // Gui yeu cau dat lai mat khau qua Firebase neu co email hop le.
   document.getElementById("resetPassword").addEventListener("click", function () {
     if (!auth) {
       setMode("login");
@@ -106,6 +116,7 @@
       .catch(reportError);
   });
 
+  // Dang xuat tai khoan Firebase khi nguoi dung bam nut dang xuat.
   document.getElementById("signOut").addEventListener("click", function () {
     if (auth) {
       auth.signOut().catch(reportError);
@@ -148,3 +159,4 @@
     setMode("login");
   }
 })();
+  // Lay cau hinh Firebase va khoi tao dich vu dang nhap neu cau hinh da day du.

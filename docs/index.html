@@ -2,16 +2,19 @@
 <html lang="vi">
 
 <head>
+  <!-- Khai báo mã hóa, kích thước hiển thị trên điện thoại và tiêu đề trang. -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Mua Locket Gold - Nâng cấp tài khoản</title>
+  <!-- Tải font Be Vietnam Pro và tệp giao diện CSS. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20261123-6">
+  <link rel="stylesheet" href="style.css?v=20261124-4">
 </head>
 
 <body>
+  <!-- Thanh đầu trang gồm logo và các liên kết điều hướng. -->
   <div class="bar">
     <div class="wrap">
       <header>
@@ -28,7 +31,9 @@
 
   <div class="wrap">
     <main>
+      <!-- Nội dung trang chủ: giới thiệu, gói nâng cấp và các quyền lợi. -->
       <div class="view on" id="v-cua-hang">
+        <!-- Phần giới thiệu chính và các ảnh minh họa. -->
         <section class="hero">
           <div class="hero-copy">
             <p class="eyebrow"><span>✦</span> Dịch vụ nâng cấp Locket Gold</p>
@@ -49,18 +54,20 @@
             <img class="art-image art-image-back" src="Images/ảnh1.jpg" alt="">
             <img class="art-image art-image-front" src="Images/ảnh2.jpg" alt="">
             <img class="art-image art-image-center" src="Images/ảnh3.jpg" alt="">
-            <span class="art-spark spark-one">✳</span><span class="art-spark spark-two">✦</span>
           </div>
         </section>
 
+        <!-- Khu vực nút kết bạn và ảnh đại diện Locket. -->
         <section class="top" id="add-locket">
           <div class="add-locket-avatar-wrap">
             <img class="add-locket-avatar" src="assets/locket-avatar.png" alt="Ảnh đại diện Locket">
             <span class="add-locket-heart" aria-hidden="true">♥</span>
           </div>
-          <button class="btn gold" type="button">ADD LOCKET</button>
+          <a class="btn gold add-locket-link" href="https://locket.cam/conghuy_06" target="_blank"
+            rel="noopener noreferrer">ADD LOCKET</a>
         </section>
 
+        <!-- Danh sách gói; JavaScript sẽ chèn các lựa chọn vào #packs. -->
         <section id="goi-khung" class="catalog">
           <div class="section-head">
             <p class="eyebrow">Chọn điều bạn thích</p>
@@ -71,6 +78,7 @@
           <button class="cta" id="cta" disabled>Tiếp tục thanh toán</button>
         </section>
 
+        <!-- Khung thanh toán minh họa, mặc định được ẩn. -->
         <section class="panel" id="payBox" hidden>
           <div class="ph">
             <h2><span class="n">3</span>Thanh toán</h2>
@@ -99,6 +107,7 @@
           </div>
         </section>
 
+        <!-- Các thẻ giới thiệu quyền lợi nổi bật. -->
         <section class="process feature-row experience-row">
           <div class="feature-intro">
             <p class="eyebrow">Quyền lợi nổi bật</p>
@@ -129,6 +138,7 @@
           </div>
         </section>
 
+        <!-- Các thẻ giới thiệu thêm về tính năng và hỗ trợ. -->
         <section class="feature-row">
           <div class="feature-intro">
             <p class="eyebrow">Trải nghiệm đầy đủ</p>
@@ -150,6 +160,7 @@
         </section>
       </div>
 
+      <!-- Trang hỏi đáp; JavaScript sẽ hiện trang này khi chọn Hỏi đáp. -->
       <div class="view" id="v-hoi-dap">
         <section class="top">
           <p class="eyebrow">Bạn muốn biết thêm?</p>
@@ -180,10 +191,12 @@
 
     </main>
 
+    <!-- Chân trang hiển thị thông tin bản quyền và người phát triển. -->
     <footer>© 2026 Locket Gold. Dịch vụ hỗ trợ nâng cấp tài khoản ứng dụng Locket. Phát triển bởi Trần Công Huy.
     </footer>
   </div>
-  <script src="script.js?v=20261123-1"></script>
+  <!-- Nạp JavaScript xử lý chọn gói, điều hướng và các thao tác trên trang. -->
+  <script src="script.js?v=20261124-3"></script>
 </body>
 
 </html>
