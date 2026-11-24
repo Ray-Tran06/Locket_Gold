@@ -11,6 +11,10 @@ var orderSequence = 1009;
 var $ = function (i) { return document.getElementById(i) };
 // Dinh dang so tien theo tien te Viet Nam.
 var money = function (n) { return n === 0 ? "Miễn phí" : n.toLocaleString("vi-VN") + "đ" };
+if ("scrollRestoration" in history) {
+  history.scrollRestoration = "manual";
+}
+if (location.hash) history.replaceState(null, "", location.pathname + location.search);
 
 // Tao danh sach cac goi mot lan va gan cac su kien chon goi.
 function drawPacks() {
@@ -74,6 +78,14 @@ function nextId() { return "LK" + (orderSequence++) }
 function finish(o) {
   $("payHint").hidden = true; $("payBody").hidden = true; $("done").hidden = false;
   $("done").textContent = "Đã mô phỏng đơn " + o.id + ". Bản mẫu này không nhận thanh toán hoặc kích hoạt Locket Gold thật.";
+}
+// Cuon len dau trang ngay ca khi CSS dang bat cuon muot.
+function scrollToTopImmediately() {
+  var root = document.documentElement;
+  var previousBehavior = root.style.scrollBehavior;
+  root.style.scrollBehavior = "auto";
+  window.scrollTo(0, 0);
+  root.style.scrollBehavior = previousBehavior;
 }
 // Kiem tra thong tin lien he, tao don tam va hien ma thanh toan minh hoa.
 $("mk").onclick = function () {
@@ -143,6 +155,9 @@ function setupScrollReveal() {
 }
 // Re-render giao dien khi dia chi hash thay doi.
 window.addEventListener("hashchange", route);
+window.addEventListener("pageshow", function (event) {
+  if (!event.persisted) scrollToTopImmediately();
+}, { once: true });
 // Ve danh sach goi va ap dung route ngay khi trang duoc tai.
 drawPacks(); route(); setupBackgroundHearts(); setupScrollReveal();
 // Tao hieu ung trai tim nho tai vi tri nguoi dung click vao trang.
