@@ -99,10 +99,27 @@ function route() {
     window.scrollTo(0, 0);
   }
 }
+// Cho cac khu vuc noi len nhe khi lan dau cuon den.
+function setupScrollReveal() {
+  if (!("IntersectionObserver" in window) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var targets = document.querySelectorAll(".catalog, .feature-row, #add-locket, #v-hoi-dap details");
+  var observer = new IntersectionObserver(function (entries, currentObserver) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        currentObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: "0px 0px -24px 0px" });
+  targets.forEach(function (target) {
+    target.classList.add("reveal-on-scroll");
+    observer.observe(target);
+  });
+}
 // Re-render giao dien khi dia chi hash thay doi.
 window.addEventListener("hashchange", route);
 // Ve danh sach goi va ap dung route ngay khi trang duoc tai.
-drawPacks(); route();
+drawPacks(); route(); setupScrollReveal();
 // Tao hieu ung trai tim nho tai vi tri nguoi dung click vao trang.
 document.addEventListener("click", function (event) {
   if (event.detail === 0) return;
