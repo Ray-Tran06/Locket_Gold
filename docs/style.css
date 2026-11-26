@@ -1675,7 +1675,6 @@ footer {
         overflow-x: auto;
         margin: 0 -16px;
         padding: 4px 16px 14px;
-        scroll-snap-type: x mandatory;
         overscroll-behavior-x: contain;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none
@@ -1690,7 +1689,6 @@ footer {
         min-width: 0;
         flex: 0 0 calc(100% - 32px);
         padding: 22px 18px 17px;
-        scroll-snap-align: start
     }
 
     .process-grid {
@@ -2473,10 +2471,10 @@ input[type=url]:focus {
         margin: 0 -16px;
         padding: 4px 16px 10px;
         overflow-x: auto;
+        scroll-behavior: auto;
+        scroll-snap-type: none;
         overscroll-behavior-x: contain;
         -webkit-overflow-scrolling: touch;
-        scroll-snap-type: x proximity;
-        scroll-padding-inline: 16px;
         scrollbar-width: none
     }
 
@@ -2490,7 +2488,6 @@ input[type=url]:focus {
         min-height: 0;
         padding: 18px 16px 14px;
         border-radius: 16px;
-        scroll-snap-align: start;
         transition: border-color .15s ease
     }
 
@@ -2858,7 +2855,8 @@ body {
     }
 
     #goi-gia {
-        margin-bottom: 18px
+        margin-bottom: 18px;
+        backdrop-filter: none
     }
 
     .feature-row:not(.experience-row) {
