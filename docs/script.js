@@ -172,13 +172,31 @@ function setupScrollReveal() {
     observer.observe(target);
   });
 }
+// Lam mo nut thanh toan khi no cuon ra khoi man hinh.
+function setupCheckoutFade() {
+  if (!("IntersectionObserver" in window) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var button = $("cta");
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      entry.target.classList.toggle("is-fading", !entry.isIntersecting);
+    });
+  }, { threshold: 0.05 });
+  observer.observe(button);
+}
 // Re-render giao dien khi dia chi hash thay doi.
 window.addEventListener("hashchange", route);
+document.querySelectorAll('a[href="#goi-gia"]').forEach(function (link) {
+  link.addEventListener("click", function (event) {
+    event.preventDefault();
+    if (location.hash !== "#goi-gia") history.pushState(null, "", "#goi-gia");
+    route();
+  });
+});
 window.addEventListener("pageshow", function (event) {
   if (!event.persisted) scrollToTopImmediately();
 }, { once: true });
 // Ve danh sach goi va ap dung route ngay khi trang duoc tai.
-drawPacks(); route(); setupBackgroundHearts(); setupScrollReveal();
+drawPacks(); route(); setupBackgroundHearts(); setupScrollReveal(); setupCheckoutFade();
 // Tao hieu ung trai tim nho tai vi tri nguoi dung click vao trang.
 document.addEventListener("click", function (event) {
   if (event.detail === 0) return;
