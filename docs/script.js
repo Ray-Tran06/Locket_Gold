@@ -104,21 +104,40 @@ $("paid").onclick = function () { if (state.pending) { var o = state.pending; st
 function route() {
   var h = (location.hash || "").replace("#", "");
   var v = h === "hoi-dap" ? "hoi-dap" : "cua-hang";
-  var activeNav = h === "goi-khung" ? "goi-khung" : v;
-  var switchingToHome = v === "cua-hang" && !$("v-cua-hang").classList.contains("on");
+  var activeNav = h === "goi-gia" || h === "goi-khung" ? "goi-gia" : v;
   document.querySelectorAll(".view").forEach(function (e) { e.classList.toggle("on", e.id === "v-" + v) });
   document.querySelectorAll("header a[data-v]").forEach(function (a) { a.classList.toggle("on", a.dataset.v === activeNav) });
-  if ((h === "goi-khung" || h === "add-locket") && switchingToHome) {
+  if (h === "goi-gia" || h === "goi-khung" || h === "add-locket") {
     window.requestAnimationFrame(function () {
-      $(h).scrollIntoView({ behavior: "smooth", block: "start" });
+      var targetId = h === "goi-khung" ? "goi-gia" : h;
+      $(targetId).scrollIntoView({ behavior: "smooth", block: "start" });
     });
-  } else if (h !== "goi-khung" && h !== "add-locket") {
+  } else {
     window.scrollTo(0, 0);
   }
 }
 // Tao mot so trai tim trang tri nen, giam so luong tren dien thoai.
 function setupBackgroundHearts() {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var splash = document.querySelector(".intro-splash");
+  if (splash) {
+    var burst = document.createElement("div");
+    burst.className = "intro-splash__hearts";
+    burst.setAttribute("aria-hidden", "true");
+    var burstCount = window.matchMedia("(max-width: 560px)").matches ? 14 : 22;
+    for (var j = 0; j < burstCount; j++) {
+      var burstHeart = document.createElement("span");
+      burstHeart.className = "intro-splash__heart";
+      burstHeart.textContent = "♥";
+      burstHeart.style.left = (3 + Math.random() * 94) + "%";
+      burstHeart.style.fontSize = (16 + Math.random() * 26) + "px";
+      burstHeart.style.setProperty("--heart-duration", (1.15 + Math.random() * 1.05) + "s");
+      burstHeart.style.setProperty("--heart-delay", (Math.random() * 0.45) + "s");
+      burstHeart.style.setProperty("--heart-drift", (Math.random() * 140 - 70) + "px");
+      burst.appendChild(burstHeart);
+    }
+    splash.insertBefore(burst, splash.firstChild);
+  }
   var layer = document.createElement("div");
   layer.className = "background-hearts";
   layer.setAttribute("aria-hidden", "true");
@@ -139,7 +158,7 @@ function setupBackgroundHearts() {
 // Cho cac khu vuc noi len nhe khi lan dau cuon den.
 function setupScrollReveal() {
   if (!("IntersectionObserver" in window) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  var targets = document.querySelectorAll(".catalog, .feature-row, #add-locket, #v-hoi-dap details");
+  var targets = document.querySelectorAll(".feature-row, #add-locket, #v-hoi-dap details");
   var observer = new IntersectionObserver(function (entries, currentObserver) {
     entries.forEach(function (entry) {
       if (entry.isIntersecting) {
